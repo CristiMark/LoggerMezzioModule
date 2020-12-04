@@ -19,12 +19,12 @@ class LoggingFactory
     public function __invoke(ContainerInterface $container): Logging
     {
         $config                = $container->get('config');
-        $errorHeroModuleLogger = $container->get('ErrorHeroModuleLogger');
+        $errorModuleLogger = $container->get('LoggerMezzioModule');
 
-        $errorHeroModuleLocalConfig = $config['logger'];
-        $logWritersConfig           = $config['log']['ErrorHeroModuleLogger']['writers'];
+        $errorModuleLocalConfig = $config['logger'];
+        $logWritersConfig           = $config['log']['LoggerMezzioModule']['writers'];
 
-        $mailConfig           = $errorHeroModuleLocalConfig['email-notification-settings'];
+        $mailConfig           = $errorModuleLocalConfig['email-notification-settings'];
         $mailMessageService   = null;
         $mailMessageTransport = null;
 
@@ -49,8 +49,8 @@ class LoggingFactory
         $includeFilesToAttachments = $mailConfig['includ-files-to-attachments'] ?? true;
 
         return new Logging(
-            $errorHeroModuleLogger,
-            $errorHeroModuleLocalConfig,
+            $errorModuleLogger,
+            $errorModuleLocalConfig,
             $logWritersConfig,
             $mailMessageService,
             $mailMessageTransport,
