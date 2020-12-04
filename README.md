@@ -95,7 +95,7 @@ return [
 **3. Require this module uses [composer](https://getcomposer.org/).**
 
 ```sh
-composer require cristimark/LoggerMezzioModule
+composer require cristimark/logger-mezzio-module
 ```
 
 **4. Copy config**
