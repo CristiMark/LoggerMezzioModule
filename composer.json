@@ -1,5 +1,5 @@
 {
-    "name": "MarkVyrus/LoggerMezzioModule",
+    "name": "cristimark/logger-mezzio-module",
     "type": "library",
     "description": "A Logger for your Mezzio application to trap php errors & exceptions",
     "keywords": [
