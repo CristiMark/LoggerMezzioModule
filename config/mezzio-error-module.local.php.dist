@@ -1,0 +1,163 @@
+<?php
+
+namespace Logger;
+
+use Laminas\Db\Adapter\AdapterInterface;
+use Laminas\Log;
+use Logger\Middleware;
+
+return [
+
+    'log' => [
+        'LoggerMezzioModule' => [
+            'writers' => [
+
+                [
+                    'name' => 'db',
+                    'options' => [
+                        'db'     => AdapterInterface::class,
+                        'table'  => 'log_error',
+                        'column' => [
+                            'timestamp' => 'data',
+                            'priority'  => 'lvl',
+                            'message'   => 'message',
+                            'extra'     => [
+                                //    'url'  => 'url',
+                                'query' => 'query',
+                                //    'line' => 'line',
+                                //    'error_type' => 'error_type',
+                                'trace' => 'stacktrace',
+                                'request_data' => 'request_params',
+                            ],
+                        ],
+                        'formatter' => [
+                            'name' => 'db',
+                            'options' => [
+                                'dateTimeFormat' => 'Y-m-d H:i:s',
+                            ],
+                        ],
+                    ],
+                ],
+
+            ],
+        ],
+    ],
+
+    'logger' => [
+        // it's for the enable/disable the logger functionality
+        'enable' => true,
+        'logpath' => 'data/log_error.txt',
+
+        'display-settings' => [
+
+            // excluded php errors ( http://www.php.net/manual/en/errorfunc.constants.php )
+            'exclude-php-errors' => [
+
+                // can be specific error
+                \E_USER_DEPRECATED,
+
+                // can be specific error with specific message
+                [\E_WARNING, 'specific error message'],
+
+            ],
+
+//            // excluded exceptions
+//            'exclude-exceptions' => [
+//
+//                // can be an Exception class or class extends Exception class
+//                \App\Exception\MyException::class,
+//
+//                // can be specific exception with specific message
+//                [\RuntimeException::class, 'specific exception message'],
+//
+//                // or specific Error class with specific message
+//                [\Error::class, 'specific error message'],
+//
+//            ],
+
+            // show or not error
+            'display_errors' => 1,
+
+            // if enable and display_errors = 0, the page will bring layout and view
+            'template' => [
+                // 'layout' config only when using Laminas View Template Engine
+                'layout' => 'layout::default',
+                'view' => 'logger::error-default'
+            ],
+
+            // for Mezzio, when container doesn't has \Mezzio\Template\TemplateRendererInterface service
+            // if enable, and display_errors = 0, then show a message under no_template config
+            'no_template' => [
+                'message' => <<<json
+{
+    "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+    "title": "Internal Server Error",
+    "status": 500,
+    "detail": "We have encountered a problem and we can not fulfill your request. An error report has been generated and sent to the support team and someone will attend to this problem urgently. Please try again later. Thank you for your patience."
+}
+json
+            ],
+
+            // if enable, display_errors = 0, and request XMLHttpRequest
+            // on this case, the "template" key will be ignored.
+            'ajax' => [
+                'message' => <<<json
+{
+    "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html",
+    "title": "Internal Server Error",
+    "status": 500,
+    "detail": "We have encountered a problem and we can not fulfill your request. An error report has been generated and sent to the support team and someone will attend to this problem urgently. Please try again later. Thank you for your patience."
+}
+json
+            ],
+
+        ],
+        'logging-settings' => [
+            // time range for same error, file, line, url, message to be re-logged
+            // in seconds range, 86400 means 1 day
+            'same-error-log-time-range' => 86400,
+        ],
+        'email-notification-settings' => [
+            // set to true to activate email notification on log error
+            'enable' => false,
+
+            // Laminas\Mail\Message instance registered at service manager
+            'mail-message'   => 'YourMailMessageService',
+
+            // Laminas\Mail\Transport\TransportInterface instance registered at service manager
+            'mail-transport' => 'YourMailTransportService',
+
+            // email sender
+            'email-from'    => 'Sender Name <sender@host.com>',
+
+            // to include or not $_FILES on send mail
+            'include-files-to-attachments' => true,
+
+            'email-to-send' => [
+                'developer1@foo.com',
+                'developer2@foo.com',
+            ],
+        ],
+    ],
+
+    'dependencies' => [
+        'abstract_factories' => [
+            Log\LoggerAbstractServiceFactory::class,
+        ],
+        'factories' => [
+            Middleware\Mezzio::class => Middleware\MezzioFactory::class,
+            // ErrorHeroModule\Middleware\Routed\Preview\ErrorPreviewAction::class => InvokableFactory::class,
+
+            Handler\Logging::class => Handler\LoggingFactory::class,
+        ],
+    ],
+
+//    'templates' =>[
+//        'paths' => [
+//            'logger'    => [
+//                realpath( dirname(dirname(__DIR__) ) . '/vendor/samsonasik/error-hero-module/view/error-hero-module' ),
+//            ],
+//        ],
+//    ],
+
+];

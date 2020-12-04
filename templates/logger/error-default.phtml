@@ -1,0 +1,15 @@
+<?php
+
+use Mezzio\LaminasView\LaminasViewRenderer as MezzioLaminasViewRenderer;
+use Laminas\View\Renderer\PhpRenderer as MvcLaminasViewRenderer;
+
+if (! ($this instanceof MezzioLaminasViewRenderer || $this instanceof MvcLaminasViewRenderer)) {
+    if (method_exists($this, 'layout')) {
+        $this->layout('layout::default', ['title' => 'Error']);
+    }
+} else {
+    $this->headTitle('Error');
+}
+?>
+
+<p>We have encountered a problem and we can not fulfill your request. An error report has been generated and sent to the support team and someone will attend to this problem urgently. Please try again later. Thank you for your patience.</p>

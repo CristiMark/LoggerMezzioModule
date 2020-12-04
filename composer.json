@@ -1,0 +1,106 @@
+{
+    "name": "MarkVyrus/LoggerMezzioModule",
+    "type": "library",
+    "description": "A Logger for your Mezzio application to trap php errors & exceptions",
+    "keywords": [
+        "laminas",
+        "error",
+        "mezzio",
+        "log",
+        "logger",
+        "logging",
+		"plan",
+        "db",
+        "doctrine",
+        "handler",
+        "psr3",
+        "psr7",
+        "psr11",
+        "psr15",
+        "laminas-view",
+        "twig",
+        "plates",
+        "symfony",
+        "aura",
+        "auryn",
+        "pimple",
+        "php-di"
+    ],
+    "homepage": "https://github.com/MarkVyrus/LoggerMezzioModule",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cristian Keisz",
+            "email": "cristiankeisz@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "laminas/laminas-db": "^2.5",
+        "laminas/laminas-diactoros": "^2.0",
+        "laminas/laminas-log": "^2.10",
+        "laminas/laminas-mail": "^2.9",
+        "laminas/laminas-psr7bridge": "^1.1",
+        "laminas/laminas-text": "^2.5",
+        "laminas/laminas-uri": "^2.7",
+        "psr/container": "^1.0",
+        "seld/jsonlint": "^1.5",
+        "webmozart/assert": "^1.4"
+    },
+    "conflict": {
+        "doctrine/doctrine-orm-module": "<2.1",
+        "elie29/zend-phpdi-config": "<4.0",
+        "laminas/laminas-mvc": "<3.0 >=4.0",
+        "laminas/laminas-servicemanager": "<3.3",
+        "mezzio/mezzio": "<3.0 >=4.0"
+    },
+    "require-dev": {
+        "aura/di": "^3.4",
+        "doctrine/doctrine-orm-module": "^2.1",
+        "elie29/zend-phpdi-config": "^4.0",
+        "kahlan/kahlan": "^4.6.4",
+        "laminas/laminas-cache": "^2.9",
+        "laminas/laminas-coding-standard": "^2.0",
+        "laminas/laminas-form": "^2.14",
+        "laminas/laminas-mvc": "^3.0",
+        "laminas/laminas-mvc-console": "^1.1",
+        "laminas/laminas-servicemanager": "^3.3",
+        "mezzio/mezzio": "^3.0",
+        "mezzio/mezzio-laminasviewrenderer": "^2.0",
+        "northwoods/container": "^3.0",
+        "php-coveralls/php-coveralls": "^2.0",
+        "php-di/php-di": "^6.0",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-webmozart-assert": "^0.12",
+        "pimple/pimple": "^3.2",
+        "symfony/dependency-injection": "^4.0"
+    },
+    "suggest": {
+        "laminas/laminas-mvc-console": "^1.1 for laminas-mvc ^3.0 usage to be able to use Console Controller",
+        "mezzio/mezzio-laminasviewrenderer": "^2.0 to be able to use laminas-view template engine in mezzio ^3.0",
+        "mezzio/mezzio-platesrenderer": "^2.0 to be able to use plates template engine in mezzio ^3.0",
+        "mezzio/mezzio-twigrenderer": "^2.0 to be able to use twig template engine in mezzio ^3.0"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "module": "LoggerMezzioModule"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "LoggerMezzioModule\\": "src/"
+        },
+        "files": [
+            "src/HeroFunction.php"
+        ]
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable": true
+
+}
