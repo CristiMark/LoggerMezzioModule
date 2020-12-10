@@ -46,8 +46,7 @@
         "laminas/laminas-uri": "^2.7",
         "psr/container": "^1.0",
         "seld/jsonlint": "^1.5",
-        "webmozart/assert": "^1.4",
-	"cristimark/logger-mezzio-module": "dev-master"
+        "webmozart/assert": "^1.4"
     },
     "conflict": {
         "doctrine/doctrine-orm-module": "<2.1",
